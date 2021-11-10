@@ -47,12 +47,11 @@ async def start(bot, update):
         return
 
     buttons = [[
-            InlineKeyboardButton('𝓐𝓵𝓫𝓮𝓻𝓽 𝓔𝓲𝓷𝓼𝓽𝓮𝓲𝓷 [ᴛɢ]★', url='http://t.me/AlbertEinstein_TG')
-            ],[
             InlineKeyboardButton('♻️ 𝙶𝚛𝚘𝚞𝚙', url='https://t.me/Movies_Club_2019'),
-            InlineKeyboardButton('⭕️ 𝙲𝚑𝚊𝚗𝚗𝚎𝚕', url='https://t.me/mcnewmovies'),
-            InlineKeyboardButton('🤴 𝙳𝚎𝚟', url='https://t.me/Sanoob_Achu_18')
-           ]]
+            InlineKeyboardButton('⭕️ 𝙲𝚑𝚊𝚗𝚗𝚎𝚕', url='https://t.me/mcnewmovies')
+            ],[
+            InlineKeyboardButton('🕵‍♂️ 𝙰𝚗𝚢 𝙳𝚘𝚞𝚋𝚝𝚜 🕵‍♀️', url='http://t.me/Sanoob_Achu_18')
+        ]]
     
     reply_markup = InlineKeyboardMarkup(buttons)
     

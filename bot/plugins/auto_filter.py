@@ -1,7 +1,7 @@
 import re
 import logging
 import asyncio
-
+import imdb
 from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from pyrogram.errors import ButtonDataInvalid, FloodWait
@@ -201,20 +201,36 @@ async def auto_filter(bot, update):
         reply_markup = InlineKeyboardMarkup(result[0])
 
         try:
-            await bot.send_message(
+            ia = imdb.IMDb()
+            my_movie=query
+            movies = ia.search_movie(my_movie)
+            #print(f"{movies[0].movieID} {movies[0]['title']}")
+            movie_url = movies[0].get_fullsizeURL()
+
+            await bot.send_photo(
+                photo=movie_url,
+                caption=f"<b>📂 ᴍᴏᴠɪᴇ ɴᴀᴍᴇ :</b> <code>{query}</code>\n<b>🎭 Genre:</b> {random.choice(GENRES)}\n<b>🌟 Rating:</b> {random.choice(RATING)}\n<b>🗳️ Votes:</b> {random.choice(VOTES)}\n<b>🎬 Total File :-</b> {(len_results)} \n<b>🗣️ Requested By:- {update.from_user.mention}</b>\n<b>©️ ᴘᴏᴡᴇʀᴇᴅ ʙʏ : <a href='https://t.me/Movies_Club_2019'>M🌀𝚅𝙸𝙴𝚂_𝙲𝙻𝚄𝙱</a></b>\n<b>📃 ɴᴏᴛɪᴄᴇ : <code>ɪ𝙵 ʏᴏᴜ ᴅᴏ ɴᴏᴛ sᴇᴇ ᴛʜᴇ 𝙵ɪʟᴇ𝚂 ᴏ𝙵 ᴛʜɪ𝚂 ᴍᴏᴠɪᴇ ʏᴏᴜ ᴀ𝚂ᴋᴇᴅ 𝙵ᴏʀ. ʟᴏᴏᴋ ᴀᴛ ɴᴇ𝚇ᴛ ᴘᴀɢᴇ</code></b>",
+                reply_markup=reply_markup,
+                chat_id=update.chat.id,
+                reply_to_message_id=update.message_id,
+                parse_mode="html"
+            )
+
+        except Exception as e:
+          print(e)
+
+          try:
+            await bot.send_photo(
                 chat_id = update.chat.id,
-                text=f"Found {(len_results)} Results For Your Query: <code>{query}</code>",
+                photo= "https://telegra.ph/file/4af8709f22d7c752fa63b.jpg",
+                caption=f"<b>📂 ᴍᴏᴠɪᴇ ɴᴀᴍᴇ :</b> <code>{query}</code>\n<b>🎬 Total File :- {(len_results)} </b>\n<b>🎭 Requested By:- {update.from_user.mention}</b>\n<b>📽️ ᴍᴀɪɴ ᴄʜᴀɴɴᴇʟ : <a href='https://t.me/mcnewmovies'>Ⓜ️©സിനിമകൾⓂ️©</a></b>\n<b>©️ ᴘᴏᴡᴇʀᴇᴅ ʙʏ : <a href='https://t.me/Movies_Club_2019'>M🌀𝚅𝙸𝙴𝚂_𝙲𝙻𝚄𝙱</a></b>\n<b>📃 ɴᴏᴛɪᴄᴇ : <code>ɪ𝙵 ʏᴏᴜ ᴅᴏ ɴᴏᴛ sᴇᴇ ᴛʜᴇ 𝙵ɪʟᴇ𝚂 ᴏ𝙵 ᴛʜɪ𝚂 ᴍᴏᴠɪᴇ ʏᴏᴜ ᴀ𝚂ᴋᴇᴅ 𝙵ᴏʀ. ʟᴏᴏᴋ ᴀᴛ ɴᴇ𝚇ᴛ ᴘᴀɢᴇ</code></b>",
                 reply_markup=reply_markup,
                 parse_mode="html",
                 reply_to_message_id=update.message_id
             )
 
-        except ButtonDataInvalid:
-            print(result[0])
-        
-        except Exception as e:
-            print(e)
-
+          except ButtonDataInvalid:
+              print(result[0])
 
 async def gen_invite_links(db, group_id, bot, update):
     """

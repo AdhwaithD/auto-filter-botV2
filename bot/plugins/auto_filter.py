@@ -136,7 +136,7 @@ async def auto_filter(bot, update):
                 reply_markup=InlineKeyboardMarkup(
                         [
                             [
-                                InlineKeyboardButton("Help🥴",callback_data="help_me")
+                                InlineKeyboardButton("🔍Search Google", url=f"https://t.me/mcallmovies/206")
                             ],
                             [
                                 InlineKeyboardButton("♻️Contact Admin♻️", url=f"https://t.me/MCrequestAccepter_bot")

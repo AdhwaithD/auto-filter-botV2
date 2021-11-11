@@ -1690,6 +1690,9 @@ async def callback_data(bot, update: CallbackQuery):
         )
 
 
+    elif query_data == "help_me":
+        await update.answer("Do not add the word MOVIE with your movie name 😉.\nദയവ് ചെയ്ത് സിനിമയുടെ പേരിന്റെ കൂടെ Movie എന്ന വാക്ക് ഇടരുത് 😝.", show_alert=True)
+
     elif query_data == "close":
         await update.message.delete()
 
